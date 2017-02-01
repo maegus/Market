@@ -1,42 +1,47 @@
 class UsersController < ApplicationController
+  before_action :set_user
   before_action :authenticate_request, only: [:update]
 
   # GET /users/1
   # GET /users/1.json
   def show
-    @user = User.find(params[:id])
   end
 
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(register_user_params)
+    @user = User.new(register_params)
 
     if @user.save
       render :show, status: :created,
                     location: @user
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: { error: @user.errors }, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    authorize @user
     if @current_user.update(user_params)
       render :show, status: :ok, location: @current_user
     else
-      render json: @current_user.errors, status: :unprocessable_entity
+      render json: { error: @current_user.errors }, status: :unprocessable_entity
     end
   end
 
   private
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:email, :name, :avatar)
-    end
 
-    def register_user_params
-      params.require(:user).permit(:email, :name, :password, :password_confirmation)
-    end
+  def set_user
+    @user = User.find params[:id]
+  end
+
+  def user_params
+    params.require(:user).permit(:email, :name, :avatar)
+  end
+
+  def register_params
+    params.require(:user).permit(:email, :name, :password, :password_confirmation)
+  end
 end
