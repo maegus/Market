@@ -21,6 +21,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'jwt'
 
+gem 'pundit', '~> 1.1.0'
+
 gem 'simple_command'
 
 # Use Capistrano for deployment
