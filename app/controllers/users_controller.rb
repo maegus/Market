@@ -1,11 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy]
-
-  # GET /users
-  # GET /users.json
-  def index
-    @users = User.all
-  end
+  before_action :set_user, only: [:show, :update]
 
   # GET /users/1
   # GET /users/1.json
@@ -34,12 +28,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.json
-  def destroy
-    @user.destroy
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -48,6 +36,10 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :name, :password_digest, :avatar)
+      params.require(:user).permit(:email, :name, :avatar)
+    end
+
+    def authenticate_token
+      #code
     end
 end
