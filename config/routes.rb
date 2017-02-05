@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :products
   post 'signin', to: 'authentication#authenticate'
   post 'signup', to: 'users#create'
   resources :users
