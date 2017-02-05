@@ -2,12 +2,10 @@ class UsersController < ApplicationController
   before_action :set_user, except: [:create]
   before_action :authenticate_request, only: [:update]
 
-  # GET /users/1
   # GET /users/1.json
   def show
   end
 
-  # POST /users
   # POST /users.json
   def create
     @user = User.new(register_params)
@@ -20,7 +18,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
     authorize @user

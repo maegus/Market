@@ -1,4 +1,6 @@
 class AuthenticationController < ApplicationController
+
+  # POST /signup.json
   def authenticate
     command = AuthenticateUser.call(params[:email], params[:password])
 
